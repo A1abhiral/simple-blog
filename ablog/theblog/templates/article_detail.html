@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {%block title%}{{post.title}}{%endblock title%}
+
 {%block content%}
 <h1>{{post.title}}</h1>
-<small>By: {{post.author.first_name}} {{post.author.last_name}}--{{post.post_date}}</small> <small><a href="{%url 'update_post' post.pk%}">(edit)</a></small><small><a href="{%url 'delete_post' post.pk%}">(delete)</a></small><br>
+<small>By: {{post.author.first_name}} {{post.author.last_name}}--{{post.post_date}}
+{% if user.is_authenticated %} 
+</small> <small><a href="{%url 'update_post' post.pk%}">(edit)</a></small><small><a href="{%url 'delete_post' post.pk%}">(delete)</a></small><br>
+{%endif%}
 <hr>
 {{post.body}}
 <br><br>
