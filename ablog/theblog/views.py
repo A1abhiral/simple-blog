@@ -10,10 +10,18 @@ from django.urls import reverse_lazy
 def CategoryView(request,cat):
     category_post = Post.objects.filter(category=cat.replace('-',' '))
     return render(request,'categories.html',{'cat':cat.replace('-',' '),'category_post':category_post})
+
 class HomeView(ListView):
     model = Post
     template_name = 'home.html'
     ordering = ['-post_date']
+
+    def get_context_data(self, *args,**kwargs) :
+        cat_menu = Category.objects.all()
+        context = super().get_context_data(*args,**kwargs)
+        context["cat_menu"] = cat_menu
+        return context
+    
 
 class ArticleDetail(DetailView):
     model = Post
