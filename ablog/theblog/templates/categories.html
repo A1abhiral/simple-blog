@@ -4,11 +4,14 @@
 <h1>{{cat}}</h1>
 <ul>
     {% for post in category_post %}
+    
     <li>
-        <strong><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a></strong> - {{ post.author.first_name }} {{ post.author.last_name }}
+        <strong><a href="{% url 'article-detail' post.pk %}">{{ post.title }}</a></strong> - {{ post.author.username }} 
         {% if user.is_authenticated %}
+        {%if post.author.id == user.id %}
                 <small><a href="{%url 'update_post' post.pk%}">(edit)</a></small><small><a href="{%url 'delete_post' post.pk%}">(delete)</a></small>
         {% endif %}
+        {%endif%}
         <br>
         {{post.body|slice:":100"}}
     </li>
