@@ -3,6 +3,7 @@
 <h1>Delete Blog Post....</h1>
 <br>
 {%if user.is_authenticated%}
+{%if post.author.id == user.id %}
 <div class="mb-3">
   <form method="POST">
       {% csrf_token %}
@@ -10,6 +11,10 @@
       <button  class="btn btn-secondary">delete</button>
     
   </div>
+  {%else%}
+  <h4>you should not be here and you know it !!!!</h4>
+  
+  {%endif%}
   {%else%}
   <h4>you should not be here and you know it !!!!</h4>
   
