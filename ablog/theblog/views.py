@@ -11,7 +11,14 @@ from django.http import HttpResponseRedirect
 
 def LikeView(request,pk):
     post = get_object_or_404(Post,id=request.POST.get('post_id'))
-    post.likes.add(request.user)
+    
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        
+    else:
+        post.likes.add(request.user)
+        
+    
     return HttpResponseRedirect(reverse('article-detail',args=[str(pk)]))
 
 def CategoryView(request,cat):
@@ -40,8 +47,14 @@ class ArticleDetail(DetailView):
         context = super().get_context_data(*args,**kwargs)
         stuff = get_object_or_404(Post, id=self.kwargs['pk'])
         total_likes = stuff.total_likes()
+
+        liked = False
+        if stuff.likes.filter(id=self.request.user.id).exists():
+            liked = True
+
         context["cat_menu"] = cat_menu
         context["total_likes"] = total_likes
+        context["liked"]=liked
         return context
 
 class AddPostView(CreateView):
