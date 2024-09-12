@@ -10,12 +10,13 @@
 {%endif%}
 {%endif%}
 <hr>
-{{post.body}}
+{{post.body|safe}}
 <br><br>
 <a href="{% url 'home' %}"class="btn btn-secondary">Back</a>
 <br><br>
 <hr>
 <br>
+{% if user.is_authenticated %}
 <form action="{% url 'like_post' post.pk %}" method="POST">
     {% csrf_token %}
     {% if liked %}
@@ -26,5 +27,11 @@
     {% endif %}
     ---{{total_likes}}likes
 </form>
+{% else %}
+<div class="alert alert-info" role="alert">
+    <strong>Notice:</strong> You need to <a href="{% url 'login' %}" class="alert-link">log in</a> to like this post.
+</div>
+{% endif %}
+
 
 {%endblock content%}
