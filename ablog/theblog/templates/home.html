@@ -13,7 +13,7 @@
         {% endif %}
         {%endif%}
         <br>
-        {{post.body|safe|slice:":100"}}
+        {{post.snippet}}
     </li>
     {% endfor %}
 </ul>

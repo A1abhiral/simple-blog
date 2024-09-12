@@ -19,6 +19,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.CharField(max_length=255,default="defaut category")
     body = RichTextField(blank=True,null=True)
+    snippet = models.CharField(max_length=255,default="this is default snippet")
     #body = models.TextField()
     post_date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User,related_name='blog_posts')
