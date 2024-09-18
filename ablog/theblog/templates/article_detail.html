@@ -39,34 +39,53 @@
 </div>
 {% endif %}
 <br><br>
-<div class="card mb-3" style="max-width: 1000px; height: 250px;"> <!-- Decreased the height -->
-    <div class="row g-0 h-100"> <!-- Ensure the row takes up full height -->
-        <div class="col-md-3">
+<div class="card mb-3 mx-auto" style="max-width: 1000px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <div class="row g-0 h-100">
+        <!-- Profile Picture Section -->
+        <div class="col-md-4 d-flex align-items-center justify-content-center bg-light" style="padding: 15px;">
             {% if post.author.profile.profile_pic %}
-            <img src="{{post.author.profile.profile_pic.url}}" style="width: 100%; height: 100%; object-fit: cover; border: 1px solid #ccc;">
+                <a href="{% url 'profile' post.author.profile.id %}">
+                    <img src="{{ post.author.profile.profile_pic.url }}" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #007bff;">
+                </a>
             {% else %}
-            <img src="{% static 'theblog/images/user-profile-icon-vector-avatar-600nw-2247726673.webp'%}" style="width: 100%; height: 100%; object-fit: cover; border: 1px solid #ccc;">
-   
+                <a href="{% url 'profile' post.author.profile.id %}">
+                    <img src="{% static 'theblog/images/user-profile-icon-vector-avatar-600nw-2247726673.webp' %}" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover; border: 4px solid #007bff;">
+                </a>
             {% endif %}
         </div>
-        <div class="col-md-9">
+
+        <!-- User Info and Social Links -->
+        <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">{{post.author.first_name}} {{post.author.last_name}}</h5>
-                <p class="card-text">{{post.author.profile.bio}}</p>
-                <p class="card-text"><small class="text-body-secondary">
-                    {%if post.author.profile.facebook_url%}
-                    <a href="{{post.author.profile.facebook_url}}">Facebook</a>
+                <!-- Author Name -->
+                <h3 class="card-title">{{ post.author.first_name }} {{ post.author.last_name }}</h3>
+
+                <!-- Bio -->
+                <p class="card-text"><strong>Bio:</strong> {{ post.author.profile.bio }}</p>
+
+                <!-- Social Media Links -->
+                <div class="social-links mt-3">
+                    {% if post.author.profile.facebook_url %}
+                        <a href="{{ post.author.profile.facebook_url }}" target="_blank" class="btn btn-outline-primary btn-sm me-2">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </a>
                     {% endif %}
-                    {%if post.author.profile.instagram_url%}
-                    <a href="{{post.author.profile.instagram_url}}"> | Instagram</a>
+                    {% if post.author.profile.instagram_url %}
+                        <a href="{{ post.author.profile.instagram_url }}" target="_blank" class="btn btn-outline-danger btn-sm me-2">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
                     {% endif %}
-                    {%if post.author.profile.X_url%}
-                    <a href="{{post.author.profile.X_url}}"> | X</a>
+                    {% if post.author.profile.X_url %}
+                        <a href="{{ post.author.profile.X_url }}" target="_blank" class="btn btn-outline-dark btn-sm me-2">
+                            <i class="fab fa-twitter"></i> X
+                        </a>
                     {% endif %}
-                    {%if post.author.profile.linkedin_url%}
-                    <a href="{{post.author.profile.linkedin_url}}"> | LinkedIn</a>
+                    {% if post.author.profile.linkedin_url %}
+                        <a href="{{ post.author.profile.linkedin_url }}" target="_blank" class="btn btn-outline-info btn-sm">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
                     {% endif %}
-                </small></p>
+                </div>
             </div>
         </div>
     </div>
