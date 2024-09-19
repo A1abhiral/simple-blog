@@ -9,6 +9,12 @@ from django.views.generic import DetailView
 
 
 
+class EditProfilePageView(generic.UpdateView):
+    model = Profile
+    template_name = 'registration/edit_profile_view.html'
+    fields = '__all__'
+    success_url = reverse_lazy('home')
+
 class ShowProfilePageView(DetailView):
     model = Profile
     template_name = 'registration/user_profile.html'
