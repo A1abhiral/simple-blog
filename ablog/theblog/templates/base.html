@@ -50,7 +50,7 @@
                  
                   <li><a class="dropdown-item" href="{% url 'profile' user.profile.id %}">View Profile</a></li>
                 {% else %}
-                  <li><a class="dropdown-item " href="#">CreateProfile</a></li>
+                  <li><a class="dropdown-item " href="{% url 'create_profile_page' %}">CreateProfile</a></li>
                 {% endif %}
               </ul>
             </li>

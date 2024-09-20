@@ -1,6 +1,42 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm,PasswordChangeForm
 from django.contrib.auth.models import User
+from theblog.models import Profile
+
+
+class EditProfilePageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio','profile_pic','facebook_url','instagram_url','X_url','linkedin_url')
+        
+        widgets = {
+            'bio' : forms.Textarea(attrs={'class':'form-control',}),
+            #'profile_pic' : forms.TextInput(attrs={'class':'form-control',}),
+            'facebook_url' : forms.TextInput(attrs={'class':'form-control',}),
+            'instagram_url' : forms.TextInput(attrs={'class':'form-control',}),
+            'X_url' : forms.TextInput(attrs={'class':'form-control',}),
+            'linkedin_url' : forms.TextInput(attrs={'class':'form-control',}),
+
+
+
+        }
+
+class ProfilePageForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('bio','profile_pic','facebook_url','instagram_url','X_url','linkedin_url')
+        
+        widgets = {
+            'bio' : forms.Textarea(attrs={'class':'form-control',}),
+            #'profile_pic' : forms.TextInput(attrs={'class':'form-control',}),
+            'facebook_url' : forms.TextInput(attrs={'class':'form-control',}),
+            'instagram_url' : forms.TextInput(attrs={'class':'form-control',}),
+            'X_url' : forms.TextInput(attrs={'class':'form-control',}),
+            'linkedin_url' : forms.TextInput(attrs={'class':'form-control',}),
+
+
+
+        }
 
 class Update_Password_Form(PasswordChangeForm):
     old_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Enter your current password'}))

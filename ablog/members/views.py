@@ -3,17 +3,33 @@ from django.views import generic
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
-from .forms import SignUpForm,Edit_Profile_Form,Update_Password_Form
+from .forms import SignUpForm,Edit_Profile_Form,Update_Password_Form,ProfilePageForm,EditProfilePageForm
 from theblog.models import Profile
-from django.views.generic import DetailView
+from django.views.generic import DetailView,CreateView
+
+
+class CreateProfilePageView(CreateView):
+    model = Profile
+    template_name = "registration/create_profile_page.html"
+    #fields = '__all__'
+    form_class = ProfilePageForm
+    
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 
 class EditProfilePageView(generic.UpdateView):
     model = Profile
     template_name = 'registration/edit_profile_view.html'
-    fields = '__all__'
+    form_class = EditProfilePageForm
     success_url = reverse_lazy('home')
+
+    def form_valid(self,form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 class ShowProfilePageView(DetailView):
     model = Profile
