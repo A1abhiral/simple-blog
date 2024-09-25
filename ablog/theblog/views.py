@@ -1,13 +1,29 @@
 from django.shortcuts import render,get_object_or_404
 from django.views.generic import ListView, DetailView,CreateView,UpdateView,DeleteView
-from theblog.models import Post,Category
-from .forms import PostForm,UpdateForm
+from theblog.models import Post,Category#Comment
+from .forms import PostForm,UpdateForm #CommentForm
 from django.urls import reverse_lazy,reverse
 from django.http import HttpResponseRedirect
 
 # Create your views here.\
 #def home(request):
  #   return render(request,'home.html',{})
+
+
+#class AddComment(CreateView):
+#    model = Comment
+#    template_name = "article_detail.html"
+#    form_class = CommentForm
+#    
+#    def form_valid(self, form):
+#        form.instance.name = self.request.user  # Make sure you're assigning the User instance
+#        return super().form_valid(form)
+#    
+#    def get_success_url(self):
+#        return self.request.META.get('HTTP_REFERER', '/')
+
+
+
 
 def LikeView(request,pk):
     post = get_object_or_404(Post,id=request.POST.get('post_id'))
@@ -55,6 +71,7 @@ class ArticleDetail(DetailView):
         context["cat_menu"] = cat_menu
         context["total_likes"] = total_likes
         context["liked"]=liked
+        #context['form'] = CommentForm()
         return context
 
 class AddPostView(CreateView):
