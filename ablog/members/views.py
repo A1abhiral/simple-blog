@@ -1,23 +1,11 @@
 from django.shortcuts import render,get_object_or_404
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
-from django.contrib.auth.views import PasswordChangeView,LoginView
+from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from .forms import SignUpForm,Edit_Profile_Form,Update_Password_Form,ProfilePageForm,EditProfilePageForm
 from theblog.models import Profile,Category
 from django.views.generic import DetailView,CreateView
-from .forms import CustomLoginForm
-
-class CustomLoginView(LoginView):
-    authentication_form = CustomLoginForm
-    template_name = 'registration/login.html'
-    success_url = reverse_lazy('home')
-
-    def get_context_data(self, *args,**kwargs) :
-        cat_menu = Category.objects.all()
-        context = super().get_context_data(*args,**kwargs)
-        context["cat_menu"] = cat_menu
-        return context
     
 
 

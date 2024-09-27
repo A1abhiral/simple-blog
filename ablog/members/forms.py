@@ -4,13 +4,6 @@ from django.contrib.auth.models import User
 from theblog.models import Profile
 
 
-class CustomLoginForm(AuthenticationForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class': 'form-control'})
-        self.fields['password'].widget.attrs.update({'class': 'form-control'})
-
-
 class EditProfilePageForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -18,7 +11,7 @@ class EditProfilePageForm(forms.ModelForm):
         
         widgets = {
             'bio' : forms.Textarea(attrs={'class':'form-control',}),
-            #'profile_pic' : forms.TextInput(attrs={'class':'form-control',}),
+            'profile_pic' : forms.FileInput(attrs={'class': 'form-control'}),
             'facebook_url' : forms.TextInput(attrs={'class':'form-control',}),
             'instagram_url' : forms.TextInput(attrs={'class':'form-control',}),
             'X_url' : forms.TextInput(attrs={'class':'form-control',}),
@@ -35,7 +28,7 @@ class ProfilePageForm(forms.ModelForm):
         
         widgets = {
             'bio' : forms.Textarea(attrs={'class':'form-control',}),
-            #'profile_pic' : forms.TextInput(attrs={'class':'form-control',}),
+            'profile_pic' : forms.FileInput(attrs={'class': 'form-control'}),
             'facebook_url' : forms.TextInput(attrs={'class':'form-control',}),
             'instagram_url' : forms.TextInput(attrs={'class':'form-control',}),
             'X_url' : forms.TextInput(attrs={'class':'form-control',}),
